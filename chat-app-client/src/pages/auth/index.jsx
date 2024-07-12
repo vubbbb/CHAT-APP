@@ -1,5 +1,6 @@
 import Background from "@/assets/login2.png";
 import Victory from "@/assets/victory.svg";
+import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useState } from "react";
@@ -8,6 +9,10 @@ const Auth = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+
+  const handleLogin = async () => {};
+
+  const handleSignup = async () => {};
 
   return (
     <div className="h-[100vh] w-[100vw] flex items-center justify-center">
@@ -53,8 +58,9 @@ const Auth = () => {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                 />
+                <Button className="rounded-full p-6" onClick={handleLogin}>Login</Button>
               </TabsContent>
-              <TabsContent value="signup" className="flex flex-col gap-5">
+              <TabsContent value="signup" className="flex flex-col gap-5" >
                 <Input
                   placeholder="Email"
                   type="email"
@@ -76,9 +82,13 @@ const Auth = () => {
                   value={confirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)}
                 />
+                <Button className="rounded-full p-6" onClick={handleSignup}>Signup</Button>
               </TabsContent>
             </Tabs>
           </div>
+        </div>
+        <div className="hidden xl:flex justify-center items-center">
+            <img src={Background} alt="background login" className="h-[700px]" />
         </div>
       </div>
     </div>
