@@ -8,9 +8,11 @@ import { toast } from "sonner";
 import apiClient from "@/lib/api-client";
 import { SIGNUP_ROUTE, LOGIN_ROUTE } from "@/utils/constants";
 import { useNavigate } from "react-router-dom";
+import { useAppStore } from "@/store";
 
 const Auth = () => {
   const navigate = useNavigate();
+  const { setUserInfo } = useAppStore();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -51,6 +53,7 @@ const Auth = () => {
         { withCredentials: true }
       );
       if (response.data.user.id) {
+        setUserInfo(response.data.user);
         if (response.data.user.profileSetup) {
           navigate("/chat");
         } else {
@@ -71,13 +74,14 @@ const Auth = () => {
         { withCredentials: true }
       );
       if (response.status === 201) {
+        setUserInfo(response.data.user);
         navigate("/profile");
       }
     }
   };
 
   return (
-    <div className="h-[100vh] w-[100vw] flex items-center justify-center">
+    <div className="h-[100vh] w-[100vw] flex items-center justify-center ">
       <div className="h-[80vh] bg-white border-2 border-white text-opacity-90 shadow-2xl w-[80vw] md:w-[90vw] lg:w-[70vw] xl:w-[60vw] rounded-3xl grid xl:grid-cols-2">
         <div className="flex flex-col gap-10 items-center justify-center">
           <div className="flex items-center justify-center flex-col">
@@ -90,7 +94,7 @@ const Auth = () => {
             </p>
           </div>
           <div className="flex items-center justify-center w-full">
-            <Tabs className="w-3/4">
+            <Tabs className="w-3/4" defaultValue="login">
               <TabsList className="bg-transparent rounded-none w-full">
                 <TabsTrigger
                   value="login"
